@@ -12,6 +12,7 @@ public class NotesDTO {
     private String description;
     private boolean archived;
     private String color;
+    private boolean active;
     private Set<NotesCategoriesDTO> notesCategoriesDTOSet;
     public NotesDTO(Notes notes) {
         this.id = notes.getId();
@@ -19,6 +20,7 @@ public class NotesDTO {
         this.description = notes.getDescription();
         this.archived = notes.isArchived();
         this.color = notes.getColor();
+        this.active = notes.isActive();
         this.notesCategoriesDTOSet = notes.getNotesCategoriesSet().stream().map(notesCategories -> new NotesCategoriesDTO(notesCategories)).collect(Collectors.toSet());
     }
 
@@ -40,6 +42,10 @@ public class NotesDTO {
 
     public String getColor() {
         return color;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
     public Set<NotesCategoriesDTO> getNotesCategoriesDTOSet() {

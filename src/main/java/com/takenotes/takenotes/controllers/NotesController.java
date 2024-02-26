@@ -57,7 +57,7 @@ public class NotesController {
             return new ResponseEntity<>("You can't create an notes because you're not a user.", HttpStatus.NOT_FOUND);
         }
 
-        Notes newNotes = new Notes(title, description, false, color);
+        Notes newNotes = new Notes(title, description, false, color, true);
         user.addNotes(newNotes);
         notesService.saveNotes(newNotes);
 
@@ -135,12 +135,14 @@ public class NotesController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @DeleteMapping ("/api/notes/delete/{id}")
+    @PutMapping ("/api/notes/inactive/{id}")
     public ResponseEntity<Object> deleteNote
             (@PathVariable Long id) {
 
-        notesService.deleteNote(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Notes notes = notesService.findById(id);
+        notes.setActive(false);
+        notesService.saveNotes(notes);
 
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
