@@ -54,7 +54,7 @@ public class CategoriesController {
         user.addCategoria(newCategories);
         categoriesService.saveCategories(newCategories);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(newCategories.getId(),HttpStatus.CREATED);
 
     }
 
